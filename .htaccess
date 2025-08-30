@@ -1,0 +1,51 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect các URL 
+    RewriteRule ^login/?$ public/client/Login.php [L,QSA]
+    RewriteRule ^register/?$ public/client/Register.php [L,QSA]
+    RewriteRule ^change-password/?$ public/client/ChangePassword.php [L,QSA]
+    RewriteRule ^logout/?$ public/client/Logout.php [L,QSA]
+    RewriteRule ^recharge/?$ public/client/Recharge.php [L,QSA]
+    
+    # Admin routes
+    RewriteRule ^admin/confirm-recharge/?$ public/admin/ConfirmRecharge.php [L,QSA]
+    RewriteRule ^admin/accounts/?$ public/admin/Accounts.php [L,QSA]
+    RewriteRule ^admin/accounts/([a-zA-Z0-9\-]+)/?$ public/admin/Accounts.php?username=$1 [L,QSA]
+    RewriteRule ^admin/confirm-game-recharge/?$ public/admin/ConfirmGameRecharge.php [L,QSA]
+    RewriteRule ^admin/add-category-group/?$ public/admin/AddCategoryGroup.php [L,QSA]
+    RewriteRule ^admin/add-money-user/?$ public/admin/AddMoneyUser.php [L,QSA]
+    RewriteRule ^admin/add-money-user/([0-9]+)/?$ public/admin/AddMoneyUser.php?id=$1 [L,QSA]
+    RewriteRule ^admin/add-group-recharge/?$ public/admin/AddGroupRecharge.php [L,QSA]
+    RewriteRule ^admin/update-category/?$ public/admin/UpdateCategory.php [L,QSA]
+    RewriteRule ^admin/update-group/?$ public/admin/UpdateGroup.php [L,QSA]
+    RewriteRule ^admin/update-group-recharge/?$ public/admin/UpdateGroupRecharge.php [L,QSA]
+    RewriteRule ^admin/update-group-recharge/([0-9]+)/?$ public/admin/UpdateGroupRecharge.php?group_id=$1 [L,QSA]
+    RewriteRule ^admin/update-group-recharge/([0-9]+)/([0-9]+)/?$ public/admin/UpdateGroupRecharge.php?group_id=$1&id=$2 [L,QSA]
+    RewriteRule ^admin/add-accounts/?$ public/admin/AddAccounts.php [L,QSA]
+    RewriteRule ^admin/update-accounts/?$ public/admin/UpdateAccounts.php [L,QSA]
+    RewriteRule ^admin/update-accounts/([0-9]+)/?$ public/admin/UpdateAccounts.php?id=$1 [L,QSA]
+
+    # Client routes
+    RewriteRule ^bank/?$ public/client/Bank.php [L,QSA]
+    RewriteRule ^history-account/?$ public/client/HistoryAccount.php [L,QSA]
+    RewriteRule ^history-game-recharge/?$ public/client/HistoryGameRecharge.php [L,QSA]
+    RewriteRule ^history-recharge/?$ public/client/HistoryRecharge.php [L,QSA]
+    RewriteRule ^about-me/?$ public/client/AboutMe.php [L,QSA]
+    
+    # Dynamic routes
+    # RewriteRule ^Groups/([0-9]+)/?$ public/client/Groups.php?id=$1 [L,QSA]
+    RewriteRule ^groups/([a-zA-Z0-9\-]+)/?$ public/client/Groups.php?slug=$1 [L,QSA]
+    # RewriteRule ^groups-recharge/([0-9]+)/?$ public/client/GroupsRecharge.php?id=$1 [L,QSA]
+    RewriteRule ^groups-recharge/([a-zA-Z0-9\-]+)/?$ public/client/GroupsRecharge.php?slug=$1 [L,QSA]
+    RewriteRule ^account/([0-9]+)/?$ public/client/Account.php?id=$1 [L,QSA]
+    # RewriteRule ^Groups/([0-9]+)/Account/([0-9]+)/?$ public/client/Account.php?group_id=$1&id=$2 [L,QSA]
+    RewriteRule ^groups/([a-zA-Z0-9\-]+)/account/([0-9]+)/?$ public/client/Account.php?group_slug=$1&id=$2 [L,QSA]
+    # Index
+    RewriteRule ^home/?$ index.php [L,QSA]
+    
+    # Cho phép truy cập trực tiếp vào các file thật
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . index.php [L]
+</IfModule>
